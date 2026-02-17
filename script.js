@@ -14,12 +14,12 @@ const jokers = [
     { symbol: '🃏', color: 'purple', value: 'JOKER' } 
 ];
 
-// Elementos
+
 const handContainer = document.getElementById('handContainer');
 const btnDeal = document.getElementById('btnDeal');
 const qtySelect = document.getElementById('cardQty');
 
-// Função Principal de Criação
+
 function createCardElement() {
     let cardData = {};
 
