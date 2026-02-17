@@ -1,0 +1,226 @@
+/* --- style.css --- */
+
+:root {
+    --bg-color: #05000a;
+    --accent-purple: #8e44ad;
+    --accent-red: #c0392b;
+    --glow-color: #9b59b6;
+    --card-width: 160px;
+    --card-height: 240px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: radial-gradient(circle at center, #2c003e, #000000);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    overflow-x: hidden;
+}
+
+.main-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 3.5rem;
+    background: -webkit-linear-gradient(#ff6b6b, #8e44ad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(142, 68, 173, 0.4);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+header p {
+    color: #a29bfe;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.controls-panel {
+    display: flex;
+    gap: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 30px;
+    border: 1px solid #8e44ad;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(142, 68, 173, 0.2);
+    align-items: center;
+    margin-bottom: 40px;
+    backdrop-filter: blur(5px);
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Cinzel', serif;
+    color: #e056fd;
+}
+
+select {
+    padding: 8px 15px;
+    background: #1a0b2e;
+    border: 1px solid #8e44ad;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-neon {
+    background: transparent;
+    color: #fff;
+    border: 2px solid var(--accent-red);
+    padding: 10px 30px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px var(--accent-red);
+    text-transform: uppercase;
+}
+
+.btn-neon:hover {
+    background: var(--accent-red);
+    box-shadow: 0 0 20px var(--accent-red), 0 0 40px var(--accent-red);
+}
+
+.hand-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    perspective: 1000px;
+    width: 100%;
+    min-height: 280px;
+}
+
+.card-scene {
+    width: var(--card-width);
+    height: var(--card-height);
+    position: relative;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(100px) rotateX(20deg);
+}
+
+.card-scene.enter-stage {
+    animation: summonCard 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes summonCard {
+    to { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
+.card-object {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s, box-shadow 0.3s;
+    border-radius: 10px;
+}
+
+.card-scene:hover .card-object {
+    transform: translateY(-15px);
+    box-shadow: 0 0 25px var(--accent-purple);
+}
+
+.card-scene.flipped .card-object {
+    transform: rotateY(180deg);
+}
+
+.card-scene.flipped:hover .card-object {
+    transform: rotateY(180deg) translateY(0);
+}
+
+.face {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 1px solid #444;
+}
+
+.face.back {
+    background: repeating-linear-gradient(
+        135deg, #1a0000, #1a0000 10px, #4a0000 10px, #4a0000 12px
+    );
+    border: 2px solid #8e44ad;
+}
+
+.face.back::after {
+    content: '★';
+    font-size: 3rem;
+    color: var(--accent-purple);
+    text-shadow: 0 0 10px var(--accent-purple);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+.face.front {
+    background: #ecf0f1;
+    transform: rotateY(180deg);
+    font-family: 'Cinzel', serif;
+    color: #333;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Cores dos Naipes e Coringas */
+.face.front.red { color: #c0392b; }
+.face.front.black { color: #2c3e50; }
+.face.front.purple { color: #8e44ad; } /* Nova cor para o Joker Místico */
+
+.corner {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+    line-height: 1.1;
+    font-weight: bold;
+}
+
+/* Estilo especial para o texto "JOKER" nos cantos */
+.corner.joker-corner {
+    font-size: 0.7rem; 
+    letter-spacing: 2px;
+    writing-mode: vertical-rl; /* Texto na vertical */
+    text-orientation: upright;
+}
+
+.top-left { top: 12px; left: 12px; }
+.bottom-right { bottom: 12px; right: 12px; transform: rotate(180deg); }
+
+.center-suit {
+    font-size: 4.5rem;
+    opacity: 0.9;
+}

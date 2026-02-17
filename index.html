@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartomante</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/assets/css/index.css">
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <header>
+            <h1>Cartomante</h1>
+            <p>Essa escolha pode mudar tudo</p>
+        </header>
+
+        <div class="controls-panel">
+            <div class="input-group">
+                <label for="cardQty">Cartas:</label>
+                <select id="cardQty">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <button id="btnDeal" class="btn-neon">
+                Invocar Cartas
+            </button>
+        </div>
+
+        <div class="hand-container" id="handContainer">
+            </div>
+    </div>
+
+    <script src="/assets/js/script.js"></script>
+</body>
+</html>
