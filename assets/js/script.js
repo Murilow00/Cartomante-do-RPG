@@ -1,6 +1,4 @@
-// --- script.js ---
 
-// Dados das Cartas Normais
 const suits = [
     { symbol: '♥', color: 'red' },
     { symbol: '♦', color: 'red' },
@@ -10,10 +8,10 @@ const suits = [
 
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
-// Dados dos Coringas (2 Cartas Extras)
+
 const jokers = [
-    { symbol: '🤡', color: 'red', value: 'JOKER' },    // Coringa Vermelho
-    { symbol: '🃏', color: 'purple', value: 'JOKER' } // Coringa Roxo/Místico
+    { symbol: '🤡', color: 'red', value: 'JOKER' },    
+    { symbol: '🃏', color: 'purple', value: 'JOKER' } 
 ];
 
 // Elementos
@@ -25,13 +23,12 @@ const qtySelect = document.getElementById('cardQty');
 function createCardElement() {
     let cardData = {};
 
-    // Lógica de Probabilidade: 52 cartas + 2 coringas = 54 possibilidades
-    // Gera um número entre 0 e 53
+    
     const totalPossibilities = 54;
     const chance = Math.floor(Math.random() * totalPossibilities);
 
     if (chance < 52) {
-        // --- Carta Normal (0 a 51) ---
+        
         const suit = suits[Math.floor(Math.random() * suits.length)];
         const value = values[Math.floor(Math.random() * values.length)];
         
@@ -42,8 +39,7 @@ function createCardElement() {
             isJoker: false
         };
     } else {
-        // --- Coringa (52 ou 53) ---
-        // Se for 52 pega o primeiro coringa, se 53 pega o segundo
+        
         const jokerIndex = chance - 52; 
         cardData = {
             symbol: jokers[jokerIndex].symbol,
@@ -66,8 +62,7 @@ function createCardElement() {
     const frontFace = document.createElement('div');
     frontFace.className = `face front ${cardData.color}`;
 
-    // Montagem do conteúdo da frente
-    // Se for Joker, usamos uma classe especial no canto para o texto ficar bonito
+    
     const cornerClass = cardData.isJoker ? 'corner top-left joker-corner' : 'corner top-left';
     const cornerClassBottom = cardData.isJoker ? 'corner bottom-right joker-corner' : 'corner bottom-right';
 
@@ -81,12 +76,12 @@ function createCardElement() {
         </div>
     `;
 
-    // Hierarquia
+    
     cardObj.appendChild(backFace);
     cardObj.appendChild(frontFace);
     scene.appendChild(cardObj);
 
-    // Evento de Clique
+    
     scene.addEventListener('click', () => {
         scene.classList.toggle('flipped');
     });

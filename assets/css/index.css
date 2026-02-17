@@ -1,4 +1,4 @@
-/* --- style.css --- */
+
 
 :root {
     --bg-color: #05000a;
@@ -194,10 +194,10 @@ select {
     overflow: hidden;
 }
 
-/* Cores dos Naipes e Coringas */
+
 .face.front.red { color: #c0392b; }
 .face.front.black { color: #2c3e50; }
-.face.front.purple { color: #8e44ad; } /* Nova cor para o Joker Místico */
+.face.front.purple { color: #8e44ad; } 
 
 .corner {
     position: absolute;
@@ -209,11 +209,11 @@ select {
     font-weight: bold;
 }
 
-/* Estilo especial para o texto "JOKER" nos cantos */
+
 .corner.joker-corner {
     font-size: 0.7rem; 
     letter-spacing: 2px;
-    writing-mode: vertical-rl; /* Texto na vertical */
+    writing-mode: vertical-rl; 
     text-orientation: upright;
 }
 
