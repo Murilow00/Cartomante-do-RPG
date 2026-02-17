@@ -9,47 +9,45 @@ const suits = [
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
 
-const jokers = [
-    { symbol: '🤡', color: 'red', value: 'JOKER' },    
-    { symbol: '🃏', color: 'purple', value: 'JOKER' } 
-];
-
-
 const handContainer = document.getElementById('handContainer');
 const btnDeal = document.getElementById('btnDeal');
 const qtySelect = document.getElementById('cardQty');
 
 
-function createCardElement() {
-    let cardData = {};
-
+function createFullDeck() {
+    let deck = [];
     
-    const totalPossibilities = 54;
-    const chance = Math.floor(Math.random() * totalPossibilities);
-
-    if (chance < 52) {
-        
-        const suit = suits[Math.floor(Math.random() * suits.length)];
-        const value = values[Math.floor(Math.random() * values.length)];
-        
-        cardData = {
-            symbol: suit.symbol,
-            value: value,
-            color: suit.color,
-            isJoker: false
-        };
-    } else {
-        
-        const jokerIndex = chance - 52; 
-        cardData = {
-            symbol: jokers[jokerIndex].symbol,
-            value: jokers[jokerIndex].value,
-            color: jokers[jokerIndex].color,
-            isJoker: true
-        };
+    
+    for (let suit of suits) {
+        for (let value of values) {
+            deck.push({
+                symbol: suit.symbol,
+                value: value,
+                color: suit.color,
+                isJoker: false
+            });
+        }
     }
+    
+    
+    deck.push({ symbol: '🤡', color: 'red', value: 'JOKER', isJoker: true });
+    deck.push({ symbol: '🃏', color: 'purple', value: 'JOKER', isJoker: true });
+    
+    return deck;
+}
 
-    // --- Criação do HTML ---
+
+function shuffleDeck(deck) {
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        // Troca a carta da posição i com a j
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    return deck;
+}
+
+
+function createCardElement(cardData) {
     const scene = document.createElement('div');
     scene.className = 'card-scene';
 
@@ -76,7 +74,6 @@ function createCardElement() {
         </div>
     `;
 
-    
     cardObj.appendChild(backFace);
     cardObj.appendChild(frontFace);
     scene.appendChild(cardObj);
@@ -89,27 +86,43 @@ function createCardElement() {
     return scene;
 }
 
+
 function dealCards() {
+    // Trava o botão
     btnDeal.disabled = true;
-    btnDeal.textContent = "Invocando...";
+    btnDeal.textContent = "Embaralhando...";
+    
     
     handContainer.innerHTML = '';
+    
+    
     const qty = parseInt(qtySelect.value);
 
-    for (let i = 0; i < qty; i++) {
-        const card = createCardElement();
-        handContainer.appendChild(card);
+    
+    let deck = createFullDeck();
+    deck = shuffleDeck(deck);
 
+    
+    const hand = deck.slice(0, qty);
+
+    
+    hand.forEach((cardData, index) => {
+        const cardElement = createCardElement(cardData);
+        handContainer.appendChild(cardElement);
+
+        
         setTimeout(() => {
-            card.classList.add('enter-stage');
-        }, i * 200);
-    }
+            cardElement.classList.add('enter-stage');
+        }, index * 200);
+    });
 
+  
     setTimeout(() => {
         btnDeal.disabled = false;
         btnDeal.textContent = "Invocar Cartas";
     }, qty * 200 + 500);
 }
+
 
 btnDeal.addEventListener('click', dealCards);
 window.onload = dealCards;
